@@ -263,6 +263,7 @@ function WIM_FriendsFrame_OnEvent()
 						level = level,
 						race = race,
 						guild = guild,
+						zone = zone,
 					}
 
 					for _, callback in callbacks do

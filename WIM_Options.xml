@@ -676,7 +676,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentWebAddress" relativePoint="BOTTOMLEFT">
 								<Offset>
-									<AbsDimension x="-3" y="-20" />
+									<AbsDimension x="-3" y="-15" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -894,7 +894,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentShowCharacterInfoClassIcon" relativePoint="BOTTOMLEFT">
 								<Offset>
-									<AbsDimension x="0" y="0" />
+									<AbsDimension x="0" y="3" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -951,7 +951,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="$parentShowCharacterInfoClassColor" relativePoint="BOTTOMLEFT">
 								<Offset>
-									<AbsDimension x="0" y="0" />
+									<AbsDimension x="0" y="3" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -1002,6 +1002,63 @@
 						</Scripts>
 					</CheckButton>
 					
+					<CheckButton name="$parentShowCharacterInfoZone">
+						<Size>
+							<AbsDimension x="25" y="25" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentShowCharacterInfoDetails" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="3" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
+						<PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
+						<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
+						<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
+						<Layers>
+							<Layer level="OVERLAY">
+								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Location">
+									<Anchors>
+										<Anchor point="LEFT">
+											<Offset>
+												<AbsDimension x="30" y="1" />
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<FontHeight>
+										<AbsValue val="12" />
+									</FontHeight>
+									<Color r="1" g="0.8196079" b="0" />
+									<Shadow>
+										<Color r="0" g="0" b="0" />
+										<Offset>
+											<AbsDimension x="1" y="-1" />
+										</Offset>
+									</Shadow>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnClick>
+								if ( this:GetChecked() ) then
+									PlaySound("igMainMenuOptionCheckBoxOff");
+								else
+									PlaySound("igMainMenuOptionCheckBoxOn");
+								end
+								WIM_Options_CharacterInfoZoneClicked();
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
+								GameTooltip:SetText("Changes will be made to new\nmessage windows only.");
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
 					
 					<!-- Font Size Slider -->
 					<Slider name="$parentFontSize" inherits="WIM_Options_SliderTemplate" minValue="10" maxValue="20" valueStep="1">

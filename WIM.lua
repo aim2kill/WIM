@@ -77,7 +77,8 @@ WIM_Data_DEFAULTS = {
 		show = true,
 		classIcon = true,
 		details = true,
-		classColor = true
+		classColor = true,
+		zone = true
 	},
 	showTimeStamps = true,
 	showShortcutBar = true,
@@ -949,6 +950,7 @@ end
 
 function WIM_SetWhoInfo(theUser)
 	local classIcon = getglobal(WIM_Windows[theUser].frame.."ClassIcon");
+	local characterDetails = getglobal(WIM_Windows[theUser].frame.."CharacterDetails");
 	if(WIM_Data.characterInfo.classIcon and WIM_ClassIcons[WIM_PlayerCache[theUser].class]) then
 		classIcon:SetTexture(WIM_ClassIcons[WIM_PlayerCache[theUser].class]);
 	else
@@ -962,7 +964,10 @@ function WIM_SetWhoInfo(theUser)
 		if(WIM_PlayerCache[theUser].guild ~= "") then
 			tGuild = "<"..WIM_PlayerCache[theUser].guild.."> ";
 		end
-		getglobal(WIM_Windows[theUser].frame.."CharacterDetails"):SetText("|cffffffff"..tGuild..WIM_PlayerCache[theUser].level.." "..WIM_PlayerCache[theUser].race.." "..WIM_PlayerCache[theUser].class.."|r");
+		characterDetails:SetText("|cffffffff"..tGuild..WIM_PlayerCache[theUser].level.." "..WIM_PlayerCache[theUser].race.." "..WIM_PlayerCache[theUser].class.."|r");
+	end
+	if(WIM_Data.characterInfo.zone) then
+		characterDetails:SetText(characterDetails:GetText().." "..WIM_PlayerCache[theUser].zone)
 	end
 end
 

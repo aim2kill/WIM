@@ -40,6 +40,7 @@ function WIM_Options_OnShow()
 		WIM_OptionsDisplayShowCharacterInfoClassIcon:SetChecked(WIM_Data.characterInfo.classIcon);
 		WIM_OptionsDisplayShowCharacterInfoClassColor:SetChecked(WIM_Data.characterInfo.classColor);
 		WIM_OptionsDisplayShowCharacterInfoDetails:SetChecked(WIM_Data.characterInfo.details);
+		WIM_OptionsDisplayShowCharacterInfoZone:SetChecked(WIM_Data.characterInfo.zone);
 		
 		--[Sliders
 		WIM_OptionsDisplayFontSize:SetValue(WIM_Data.fontSize);
@@ -404,6 +405,14 @@ function WIM_Options_CharacerInfoDetailsClicked()
 		WIM_Data.characterInfo.details = true;
 	else
 		WIM_Data.characterInfo.details = false;
+	end
+end
+
+function WIM_Options_CharacterInfoZoneClicked()
+	if(WIM_OptionsDisplayShowCharacterInfoZone:GetChecked()) then
+		WIM_Data.characterInfo.zone = true;
+	else
+		WIM_Data.characterInfo.zone = false;
 	end
 end
 
