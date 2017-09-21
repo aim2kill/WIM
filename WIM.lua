@@ -288,8 +288,12 @@ function WIM_WhoInfo(name, callback)
 	end
 end
 
-local function playerCheck(player, k)
+local function playerCheck(flags, player, k)
 	if not WIM_Data.blockLowLevel then
+		return k()
+	end
+
+	if flags == "GM" then
 		return k()
 	end
 
@@ -334,11 +338,11 @@ function WIM_ChatFrame_OnEvent(event)
 		WIM_PostMessage(arg2, msg, 3);
 		ChatEdit_SetLastTellTarget(ChatFrameEditBox,arg2);
 	elseif event == 'CHAT_MSG_WHISPER' then
-		local content, sender = arg1, arg2
-		playerCheck(sender, function()
+		local content, sender, flags = arg1, arg2, arg6
+		playerCheck(flags, sender, function()
 			if WIM_FilterResult(content) ~= 1 and WIM_FilterResult(content) ~= 2 then
 				msg = "[|Hplayer:"..sender.."|h"..WIM_GetAlias(sender, true).."|h]: "..content
-				WIM_PostMessage(sender, msg, 1, sender, content)
+				WIM_PostMessage(sender, msg, 1, sender, content, nil, flags)
 			end
 			ChatEdit_SetLastTellTarget(ChatFrameEditBox, sender)
 		end)
@@ -424,7 +428,7 @@ function WIM_ChatFrameSupressor_OnEvent(event)
 end
 
 
-function WIM_PostMessage(user, msg, ttype, from, raw_msg, hotkeyFix)
+function WIM_PostMessage(user, msg, ttype, from, raw_msg, hotkeyFix, flags)
 	--[[
 		ttype:
 			1 - Wisper from someone
@@ -478,7 +482,8 @@ function WIM_PostMessage(user, msg, ttype, from, raw_msg, hotkeyFix)
 		WIM_PlaySoundWisp()
 		WIM_AddToHistory(user, from, raw_msg, false)
 		WIM_RecentListAdd(user)
-		chatBox:AddMessage(WIM_getTimeStamp()..msg, WIM_Data.displayColors.wispIn.r, WIM_Data.displayColors.wispIn.g, WIM_Data.displayColors.wispIn.b)
+		local gmtext = (flags == "GM" and "<GM> " or "")
+		chatBox:AddMessage(WIM_getTimeStamp()..gmtext..msg, WIM_Data.displayColors.wispIn.r, WIM_Data.displayColors.wispIn.g, WIM_Data.displayColors.wispIn.b)
 	elseif ttype == 2 then
 		WIM_AddToHistory(user, from, raw_msg, true)
 		WIM_RecentListAdd(user)
